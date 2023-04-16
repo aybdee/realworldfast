@@ -7,6 +7,8 @@ name = "pypi"
 fastapi = { extras = ["all"], version = "*" }
 sqlalchemy = "*"
 alembic = "*"
+python-multipart = "*"
+python-jose = "*"
 
 [dev-packages]
 autopep8 = "*"
