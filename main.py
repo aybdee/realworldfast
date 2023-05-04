@@ -1,6 +1,8 @@
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
+from fastapi.security import OAuth2PasswordRequestForm
 from routes import user
 from dotenv import load_dotenv
+import requests
 app = FastAPI()
 
 

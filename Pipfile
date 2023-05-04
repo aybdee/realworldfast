@@ -9,6 +9,7 @@ sqlalchemy = "*"
 alembic = "*"
 python-multipart = "*"
 python-jose = "*"
+requests = "*"
 
 [dev-packages]
 autopep8 = "*"

@@ -4,7 +4,6 @@ from email_validator import validate_email
 
 class Token(BaseModel):
     access_token: str
-    token_type: str
 
 
 class TokenData(BaseModel):
