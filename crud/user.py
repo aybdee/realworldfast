@@ -16,6 +16,8 @@ def find_by_username(db: Session, username: str):
 def create_user(db: Session, user: user_schema.User):
     if find_by_email(db, user.email):
         raise UserException(UserError.EmailUsed)
+    if find_by_username(db, user.username):
+        raise UserException(UserError.UsernameUsed)
     else:
         user.password = crypt.get_password_hash(user.password)
         new_user = user_models.User(**user.dict())

@@ -8,20 +8,20 @@ class UserBase(BaseModel):
     email: str
     password: str
 
-    # @validator("email", pre=True)
-    # def is_valid_email(cls, email):
-    #     validate_email(email)
-    #     return email
+    @validator("email", pre=True)
+    def is_valid_email(cls, email):
+        validate_email(email)
+        return email
 
 
 class UserBaseEdit(BaseModel):
     email: Optional[str]
     password: Optional[str]
 
-    # @validator("email", pre=True)
-    # def is_valid_email(cls, email):
-    #     validate_email(email)
-    #     return email
+    @validator("email", pre=True)
+    def is_valid_email(cls, email):
+        validate_email(email)
+        return email
 
 
 class UserEdit(UserBaseEdit):

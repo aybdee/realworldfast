@@ -12,5 +12,4 @@ class User(Base):
     password = db.Column(db.String(100))
     bio = db.Column(db.String(100), nullable=True)
     image = db.Column(db.String(100), nullable=True)
-    following_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     following = relationship('User', remote_side=[id])

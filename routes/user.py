@@ -7,7 +7,7 @@ from crud import user as user_crud
 from sqlalchemy.orm import Session
 from db.session import get_db
 from utils.auth import create_access_token, get_current_user, get_current_user_oauth
-from utils.crypt import verify_password
+from utils.crypt import get_password_hash, verify_password
 from utils.exceptions import UserError, UserException
 import requests
 
@@ -44,6 +44,7 @@ def get_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = De
                 user_m = UserDB.from_orm(user)
                 db.commit()
                 return {"access_token": user_m.token}
+
             else:
                 raise user_crud.UserException(
                     UserError.PasswordIncorrect)
@@ -104,10 +105,15 @@ async def update_user(user: UserEditWrap, current_user: UserDB = Depends(auth_mo
                 raise UserException(user_crud.UserError.EmailUsed)
         if user.user.username:
             if user_crud.find_by_username(db, user.user.username):
-                raise UserException(user_crud.UserError.EmailUsed)
+                raise UserException(user_crud.UserError.UsernameUsed)
         for property in properties:
-            if getattr(user, property):
-                setattr(current_user, property, getattr(user, property))
+            if getattr(user.user, property):
+                if property == 'password':
+                    setattr(current_user, property, get_password_hash(
+                        getattr(user.user, property)))
+                else:
+                    setattr(current_user, property,
+                            getattr(user.user, property))
         user_m = UserDB.from_orm(current_user)
         db.commit()
         return {"user": user_m}
@@ -117,7 +123,5 @@ async def update_user(user: UserEditWrap, current_user: UserDB = Depends(auth_mo
             status_code=400,
             detail=e.message
         )
-
-        # if user.user.username and user_crud.find_by_username(db, user.username):
-
+        
     pass
