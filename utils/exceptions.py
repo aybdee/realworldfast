@@ -21,4 +21,11 @@ class ProfileException(Exception):
     def __init__(self, error: ProfileError):
         self.message = error.value
 
-        
+class ArticleError(enum.Enum):
+    ArticleNotExist = "this article does not exist"
+    NotAllowedToEdit = "you are not allowed to edit this article"
+
+    
+class ArticleException(Exception):
+    def __init__(self, error: ArticleError):
+        self.message = error.value

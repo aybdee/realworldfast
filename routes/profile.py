@@ -50,7 +50,7 @@ def follow_user(
 
 
 @router.delete("{username}/follow")
-def follow_user(username: str = Path(title="username to unfollow"), current_user= Depends(get_current_user_oauth), db:Session = Depends(get_db)):
+def unfollow_user(username: str = Path(title="username to unfollow"), current_user= Depends(get_current_user_oauth), db:Session = Depends(get_db)):
     user = find_by_username(db,username)
     if user in current_user.following:
         current_user.following.remove(user) 

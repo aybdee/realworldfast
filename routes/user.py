@@ -123,5 +123,3 @@ async def update_user(user: UserEditWrap, current_user: UserDB = Depends(auth_mo
             status_code=400,
             detail=e.message
         )
-        
-    pass

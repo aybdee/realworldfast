@@ -1,0 +1,20 @@
+from sqlalchemy.orm import Session
+from models.article import Article
+from schemas import article as article_schema
+from random import randint as ri
+
+def create_slug(title:str):
+    def generate_sub():
+        for i in range(3):
+            return ''.join([chr(ri(97,122)) for i in range(3)])
+    substring
+    
+
+
+
+def create_article(article:article_schema.Article,db:Session):
+    new_article = Article(**article.dict())
+    db.add(new_article)
+    db.commit()
+    db.refresh(new_article)
+    return new_article
